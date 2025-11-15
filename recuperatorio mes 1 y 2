@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout Responsive CSS Grid</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f0f0f0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .title {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            display: grid;
+            gap: 10px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Estilos comunes para todos los elementos */
+        .header, .menu, .hero, .main, .banner, .extra, .image {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        .header {
+            background-color: #1E40AF;
+        }
+
+        .menu {
+            background-color: #DC2626;
+        }
+
+        .hero {
+            background-color: #9333EA;
+        }
+
+        .main {
+            background-color: #2563EB;
+        }
+
+        .banner {
+            background-color: #F59E0B;
+        }
+
+        .extra {
+            background-color: #10B981;
+        }
+
+        .image {
+            background-color: #60A5FA;
+        }
+
+        /* Mobile Layout (hasta 767px) */
+        @media (max-width: 767px) {
+            .container {
+                grid-template-areas:
+                    "header"
+                    "menu"
+                    "hero"
+                    "main"
+                    "banner"
+                    "extra"
+                    "image";
+                grid-template-rows: 50px 50px 120px 150px 70px 70px 70px;
+                height: 580px;
+            }
+            
+            .title::after {
+                content: "MOBILE";
+                display: block;
+                font-size: 18px;
+                margin-top: 5px;
+                color: #1E40AF;
+            }
+        }
+
+        /* Tablet Layout (768px - 1023px) */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .container {
+                grid-template-areas:
+                    "header header header"
+                    "hero hero hero"
+                    "main main main"
+                    "menu banner banner"
+                    "menu extra extra"
+                    "menu image image";
+                grid-template-columns: 1fr 1fr 1fr;
+                grid-template-rows: 60px 140px 160px 80px 80px 80px;
+                height: 600px;
+            }
+            
+            .title::after {
+                content: "TABLET";
+                display: block;
+                font-size: 18px;
+                margin-top: 5px;
+                color: #DC2626;
+            }
+        }
+
+        /* Desktop Layout (1024px y superior) */
+        @media (min-width: 1024px) {
+            .container {
+                grid-template-areas:
+                    "header menu menu"
+                    "hero hero hero"
+                    "main main image"
+                    "main main extra"
+                    "banner banner banner";
+                grid-template-columns: 1fr 1fr 1fr;
+                grid-template-rows: 60px 160px 1fr 1fr 80px;
+                height: 500px;
+            }
+            
+            .title::after {
+                content: "DESKTOP";
+                display: block;
+                font-size: 18px;
+                margin-top: 5px;
+                color: #10B981;
+            }
+        }
+
+        /* Asignación de áreas de grid */
+        .header { grid-area: header; }
+        .menu { grid-area: menu; }
+        .hero { grid-area: hero; }
+        .main { grid-area: main; }
+        .banner { grid-area: banner; }
+        .extra { grid-area: extra; }
+        .image { grid-area: image; }
+
+        .info {
+            color: #666;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="title">Layout Responsive CSS Grid</h1>
+    
+    <div class="container">
+        <div class="header">HEADER</div>
+        <div class="menu">MENU</div>
+        <div class="hero">HERO</div>
+        <div class="main">MAIN</div>
+        <div class="banner">BANNER</div>
+        <div class="extra">EXTRA</div>
+        <div class="image">IMAGE</div>
+    </div>
+    
+    <div class="info">
+        Este layout se adapta automáticamente a diferentes tamaños de pantalla. 
+        Cambia el tamaño de tu ventana para ver las versiones Mobile, Tablet y Desktop.
+    </div>
+
+    <script>
+        // Actualizar el título según el tamaño de pantalla
+        function updateTitle() {
+            const title = document.querySelector('.title');
+            const width = window.innerWidth;
+            
+            if (width < 768) {
+                title.innerHTML = 'Layout Responsive CSS Grid <span style="display:block;font-size:18px;margin-top:5px;color:#1E40AF">MOBILE</span>';
+            } else if (width >= 768 && width < 1024) {
+                title.innerHTML = 'Layout Responsive CSS Grid <span style="display:block;font-size:18px;margin-top:5px;color:#DC2626">TABLET</span>';
+            } else {
+                title.innerHTML = 'Layout Responsive CSS Grid <span style="display:block;font-size:18px;margin-top:5px;color:#10B981">DESKTOP</span>';
+            }
+        }
+        
+        window.addEventListener('resize', updateTitle);
+        updateTitle(); // Ejecutar al cargar la página
+    </script>
+</body>
+</html>
